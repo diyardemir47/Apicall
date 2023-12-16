@@ -1,24 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import SearchHeader from './SearchHeader';
+import 'bulma/css/bulma.css';
+import searchImages from './api';
+import { useState } from 'react';
+import ImageList from './component/ImageList';
+
 
 function App() {
+const [images, setImages] = useState([])
+ 
+const handleSubmit = async (term) => {
+
+console.log(term);
+const result= await searchImages(term);
+setImages(result);
+
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className='app'>
+      <div className='container'>
+  <SearchHeader search={handleSubmit}/>
+<ImageList imagesPlaceholder={images}/>
+    </div></div>
   );
 }
 
